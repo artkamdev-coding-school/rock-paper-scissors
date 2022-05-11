@@ -16,11 +16,10 @@
             BOMB : "bomb"
         }
         //
-        const RESULT = {
+        const GAME_RESULTS = {
             TIE : "tie",
             WIN : "win",
             LOOSE : "loose",
-            NO_AGREEMENT : "NO_AGREEMENT" // TODO: learn exception handling
         }
         //
         const EXCEPTION = "exception";        
@@ -31,7 +30,7 @@
         const validChose = [HANDS.ROCK, HANDS.PAPER, HANDS.SCISSORS];
         //
         const isValidUserChoise = (userInput) =>
-        validChose.map((y) => y === userInput).filter((z) => z).length > 0;
+            validChose.map((y) => y === userInput).filter((z) => z).length > 0;
         //
         const printIsValidUserChoise = (userInput) =>
             userInput.length > 0
@@ -45,15 +44,14 @@
         //
         const determineWinner = (userChoice, computerChoice) => {
             // Bomb
-            if (userChoice === HANDS.BOMB) return RESULT.WIN;
+            if (userChoice === HANDS.BOMB) return GAME_RESULTS.WIN;
             // Tie
-            if (userChoice === computerChoice) return RESULT.TIE;
+            if (userChoice === computerChoice) return GAME_RESULTS.TIE;
             // one winner one looser
             switch (userChoice) { 
-                case HANDS.ROCK: return computerChoice === HANDS.SCISSORS ? RESULT.WIN : RESULT.LOOSE; break; //
-                case HANDS.PAPER:return computerChoice === HANDS.ROCK ? RESULT.WIN : RESULT.LOOSE; break; //
-                case HANDS.SCISSORS: return computerChoice === HANDS.PAPER ? RESULT.WIN : RESULT.LOOSE; break; //
-                default: return RESULT.NO_AGREEMENT; break; //
+                case HANDS.ROCK: return computerChoice === HANDS.SCISSORS ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
+                case HANDS.PAPER:return computerChoice === HANDS.ROCK ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
+                case HANDS.SCISSORS: return computerChoice === HANDS.PAPER ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
             }
         };
         //
