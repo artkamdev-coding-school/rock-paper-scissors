@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    CONSOLE...
+    <script>
+      const ROCK = "rock";
+      const PAPER = "paper";
+      const SCISSORS = "scissors";
+
+      const BOMB = "bomb";
+      const TIE = "tie";
+      const WIN = "win";
+      const LOOSE = "loose";
+
+      const EXCEPTION = "exception";
+
+      const INPUT_NOT_VALID = "Error: Input is not valid!"
+
+    const print = data => console.log(data)
+
+      const validChose = [ROCK, PAPER, SCISSORS];
+      //
+      const isValidUserChoise = (userInput) =>
+        validChose.map((y) => y === userInput).filter((z) => z).length > 0;
+      //
+      const printIsValidUserChoise = (userInput) =>
+        userInput.length > 0
+          ? userInput
+          : print(INPUT_NOT_VALID);
+      //
+      const getUserChoice = (userInput) =>
+        [userInput.toLowerCase()].filter(isValidUserChoise);
+      //
+      const getComputerChoice = () => validChose[Math.floor(Math.random() * 3)];
+      //
+      const determineWinner = (userChoice, computerChoice) => {
+        // Bomb
+        if (userChoice === BOMB) return WIN;
+        // Tie
+        if (userChoice === computerChoice) return TIE;
+        // one winner one looser
+        switch (userChoice) {
+          case ROCK:
+            return computerChoice === SCISSORS ? WIN : LOOSE;
+            break;
+          case PAPER:
+            return computerChoice === ROCK ? WIN : LOOSE;
+            break;
+          case SCISSORS:
+            return computerChoice === PAPER ? WIN : LOOSE;
+            break;
+          default:
+            return EXCEPTION;
+            break;
+        }
+      };
+      //
+      const playGame = () => {
+        print("New Game");
+        let userChoice = BOMB;
+        let computerChoice = getComputerChoice();
+        print("userChoice:" + userChoice);
+        print("computerChoice:" + computerChoice);
+        print("User has: " + determineWinner(userChoice, computerChoice));
+      };
+      // main function
+      playGame();
+
+      //// Test Code
+      // const testInput = [
+      //   "rock",
+      //   "Rock",
+      //   "paper",
+      //   "Paper",
+      //   "scissors",
+      //   "Scissors",
+      //   "aaa",
+      //   "",
+      //   "erock",
+      //   "eRock"
+      // ];
+      //console.log("+++++++++++++ TEST " + Date.now());
+      //testInput.forEach((x) =>
+      //  console.log("input:" + x + "#####output:" + getUserChoice(x))
+      // );
+    </script>
+  </body>
+</html>
