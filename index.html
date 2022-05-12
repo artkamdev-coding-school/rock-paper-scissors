@@ -1,87 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Static Template</title>
-</head>
-<body>
-    CONSOLE...
+  </head>
+  <body>
+    <ul></ul>
     <script>
-        const HANDS = {
-            ROCK : "rock",
-            PAPER : "paper",
-            SCISSORS : "scissors",
-            BOMB : "bomb"
+      const HANDS = {
+        ROCK: 'rock',
+        PAPER: 'paper',
+        SCISSORS: 'scissors',
+        BOMB: 'bomb',
+      };
+      //
+      const GAME_RESULTS = {
+        TIE: 'tied',
+        WIN: 'won',
+        LOSE: 'lost',
+      };
+      //
+      const INPUT_NOT_VALID = 'Error: Input is not valid!';
+      //
+      const print = (data) =>
+        (document.querySelector('ul').innerHTML += `<li>${data}</li>`);
+      //
+      const validChoices = Object.values(HANDS);
+      //
+      const printIsValidUserChoice = (userInput) =>
+        userInput.length > 0 ? userInput : print(INPUT_NOT_VALID);
+      //
+      const validateUserInput = (userInput) =>
+        validChoices.includes(userInput)
+          ? userInput
+          : alert('this input is invalid');
+      //
+      const getComputerChoice = () =>
+        validChoices[Math.floor(Math.random() * 3)];
+      //
+      const determineWinner = (userChoice, computerChoice) => {
+        // Bomb
+        if (userChoice === HANDS.BOMB) return GAME_RESULTS.WIN;
+        // Tie
+        if (userChoice === computerChoice) return GAME_RESULTS.TIE;
+        // one winner one looser
+        switch (userChoice) {
+          case HANDS.ROCK:
+            return computerChoice === HANDS.SCISSORS
+              ? GAME_RESULTS.WIN
+              : GAME_RESULTS.LOOSE; //
+          case HANDS.PAPER:
+            return computerChoice === HANDS.ROCK
+              ? GAME_RESULTS.WIN
+              : GAME_RESULTS.LOOSE; //
+          case HANDS.SCISSORS:
+            return computerChoice === HANDS.PAPER
+              ? GAME_RESULTS.WIN
+              : GAME_RESULTS.LOOSE; //
         }
-        //
-        const GAME_RESULTS = {
-            TIE : "tie",
-            WIN : "win",
-            LOOSE : "loose",
-        }
-        //
-        const EXCEPTION = "exception";        
-        const INPUT_NOT_VALID = "Error: Input is not valid!";
-        //
-        const print = data => console.log(data)
-        //
-        const validChose = [HANDS.ROCK, HANDS.PAPER, HANDS.SCISSORS];
-        //
-        const isValidUserChoise = (userInput) =>
-            validChose.map((y) => y === userInput).filter((z) => z).length > 0;
-        //
-        const printIsValidUserChoise = (userInput) =>
-            userInput.length > 0
-            ? userInput
-            : print(INPUT_NOT_VALID);
-        //
-        const getUserChoice = (userInput) =>
-            [userInput.toLowerCase()].filter(isValidUserChoise);
-        //
-        const getComputerChoice = () => validChose[Math.floor(Math.random() * 3)];
-        //
-        const determineWinner = (userChoice, computerChoice) => {
-            // Bomb
-            if (userChoice === HANDS.BOMB) return GAME_RESULTS.WIN;
-            // Tie
-            if (userChoice === computerChoice) return GAME_RESULTS.TIE;
-            // one winner one looser
-            switch (userChoice) { 
-                case HANDS.ROCK: return computerChoice === HANDS.SCISSORS ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
-                case HANDS.PAPER:return computerChoice === HANDS.ROCK ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
-                case HANDS.SCISSORS: return computerChoice === HANDS.PAPER ? GAME_RESULTS.WIN : GAME_RESULTS.LOOSE; break; //
-            }
-        };
-        //
-        const playGame = () => {
-            print("New Game");
-            let userChoice = HANDS.BOMB;
-            let computerChoice = getComputerChoice();
-            print("userChoice:" + userChoice);
-            print("computerChoice:" + computerChoice);
-            print("User has: " + determineWinner(userChoice, computerChoice));
-        };
-        // main function
-        playGame();
-        //// Test Code
-        // const testInput = [
-        //   "rock",
-        //   "Rock",
-        //   "paper",
-        //   "Paper",
-        //   "scissors",
-        //   "Scissors",
-        //   "aaa",
-        //   "",
-        //   "erock",
-        //   "eRock"
-        // ];
-        //console.log("+++++++++++++ TEST " + Date.now());
-        //testInput.forEach((x) =>
-        //  console.log("input:" + x + "#####output:" + getUserChoice(x))
-        // );
+      };
+      //
+      const play = (userInput) => {
+        print('New Game');
+        const userChoice = validateUserInput(userInput);
+        const computerChoice = getComputerChoice();
+        print('userChoice:' + userChoice);
+        print('computerChoice:' + computerChoice);
+        print('User has ' + determineWinner(userChoice, computerChoice));
+      };
+      // main function
+      play(HANDS.PAPER);
+      //// Test Code
+      // const testInput = [
+      //   "rock",
+      //   "Rock",
+      //   "paper",
+      //   "Paper",
+      //   "scissors",
+      //   "Scissors",
+      //   "aaa",
+      //   "",
+      //   "erock",
+      //   "eRock"
+      // ];
+      //console.log("+++++++++++++ TEST " + Date.now());
+      //testInput.forEach((x) =>
+      //  console.log("input:" + x + "#####output:" + getUserChoice(x))
+      // );
     </script>
-</body>
+  </body>
 </html>
